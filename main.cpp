@@ -1,14 +1,31 @@
 #include <iostream>
-#include <string>
-#include <fstream>
-#include <iomanip>
-#include <vector>
-#include <cstdlib>
-#include <time.h>
 
 using namespace std;
 
-bool validateCard(int cardnum){
+bool validateCard(int cardnum, int choice){
+
+    int first = cardnum;
+
+    while(first>=10){
+        first/=10;
+    }
+
+    //checks if the starting number of the card number is correct with the card provider inputed
+    if((choice == 1 && first != 4) || (choice == 2 && first != 5) || (choice == 3 && first != 3) || (choice ==4 && first != 6)){
+        return false;
+    }
+
+    int temp = cardnum, digit, total;
+    int counter = 1;
+    while(temp>10){
+        if(counter %2 == 0){
+            digit = temp%10;
+            digit*=2;
+            if(digit>10){
+                total = (digit/10) + (digit%10);
+            }   
+        }
+    }
 
     return false;
 
@@ -27,5 +44,16 @@ int main(){
     cout << "4. Discover" << endl;
     cin >> choice;
 
-    
+    cout << endl;
+
+    bool isValid;
+    isValid = validateCard(cardnumber, choice);
+
+    if(isValid){
+        cout << "This is a valid card. " << endl;
+    } else {
+        cout << "This is not a valid card" << endl;
+    }
+
+    return 0;
 }
