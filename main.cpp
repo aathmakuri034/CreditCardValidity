@@ -15,17 +15,30 @@ bool validateCard(int cardnum, int choice){
         return false;
     }
 
-    int temp = cardnum, digit, total;
-    int counter = 1;
-    while(temp>10){
-        if(counter %2 == 0){
-            digit = temp%10;
-            digit*=2;
-            if(digit>10){
-                total = (digit/10) + (digit%10);
-            }   
-        }
+    int ccnum[16], num;
+
+    //converts the card number from int to array
+    for(int i=16; i>0; i--){
+        num = cardnum%10;
+        cardnum/=10;
+        ccnum[i] = num;
     }
+
+    for(int i=0; i<16; i++){
+        cout << ccnum[i];
+    }
+
+    // int temp = cardnum, digit, total;
+    // int counter = 1;
+    // while(temp>10){
+    //     if(counter %2 == 0){
+    //         digit = temp%10;
+    //         digit*=2;
+    //         if(digit>10){
+    //             total = (digit/10) + (digit%10);
+    //         }   
+    //     }
+    // }
 
     return false;
 
@@ -49,11 +62,11 @@ int main(){
     bool isValid;
     isValid = validateCard(cardnumber, choice);
 
-    if(isValid){
-        cout << "This is a valid card. " << endl;
-    } else {
-        cout << "This is not a valid card" << endl;
-    }
+    // if(isValid){
+    //     cout << "This is a valid card. " << endl;
+    // } else {
+    //     cout << "This is not a valid card" << endl;
+    // }
 
     return 0;
 }
