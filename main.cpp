@@ -20,6 +20,10 @@ bool validateCard(long long cardnum, int choice){
 
     //Step 1a -- make sure the choices are selected correctly.
 
+    if(digits.size() >16){
+        return false;
+    }
+
     if((choice == 1 && digits.at(0) != 4) || (choice == 2 && digits.at(0) !=5) || (choice == 3 && digits.at(0) != 6)){
         return false;
     }
