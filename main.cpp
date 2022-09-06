@@ -5,7 +5,7 @@ using namespace std;
 
 void printArr(vector<int> arr);
 
-bool validateCard(long long cardnum){
+bool validateCard(long long cardnum, int choice){
 
     //step 1 - convert card number into a vector of digits
     vector<int> digits;
@@ -17,6 +17,12 @@ bool validateCard(long long cardnum){
     }
 
     reverse(digits.begin(), digits.end());
+
+    //Step 1a -- make sure the choices are selected correctly.
+
+    if((choice == 1 && digits.at(0) != 4) || (choice == 2 && digits.at(0) !=5) || (choice == 3 && digits.at(0) != 6)){
+        return false;
+    }
 
     //Step 2 - double every other digit starting from the right and replace the digit
     int tempvar;
@@ -76,7 +82,7 @@ int main(){
 
     cout << endl;
 
-    bool isValid = validateCard(cardnumber);
+    bool isValid = validateCard(cardnumber, choice);
 
     // Example Credit card number -> 4417123456789113
 
