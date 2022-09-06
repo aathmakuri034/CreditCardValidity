@@ -5,8 +5,9 @@ using namespace std;
 
 void printArr(vector<int> arr);
 
-void validateCard(long long cardnum){
+bool validateCard(long long cardnum){
 
+    //step 1 - convert card number into a vector of digits
     vector<int> digits;
     long long temp = cardnum;
 
@@ -17,8 +18,7 @@ void validateCard(long long cardnum){
 
     reverse(digits.begin(), digits.end());
 
-    printArr(digits);
-
+    //Step 2 - double every other digit starting from the right and replace the digit
     int tempvar;
     for(int i=15; i>=0; i--){
         if(i%2 == 0){
@@ -26,16 +26,24 @@ void validateCard(long long cardnum){
             tempvar*=2;
             if(tempvar>9){
                 tempvar = tempvar/10 + tempvar%10;
-                cout << "IN LOOP" << endl;
             }
             digits.at(i) = tempvar;
         }
-
-        
     }
 
-    cout << "-----------------------------" << endl;
-    printArr(digits);
+    //Step 3 - total the numbers in the card and see if it is divisable by 10
+
+    int total = 0;
+    for(int i=0; i<digits.size(); i++){
+        total+=digits.at(i);
+    }
+
+    if(total%10 == 0){
+        return true;
+    } else{
+        return false;
+    }
+
 
 }
 
@@ -68,15 +76,15 @@ int main(){
 
     cout << endl;
 
-    validateCard(cardnumber);
+    bool isValid = validateCard(cardnumber);
 
     // Example Credit card number -> 4417123456789113
 
-    // if(isValid){
-    //     cout << "This is a valid card. " << endl;
-    // } else {
-    //     cout << "This is not a valid card" << endl;
-    // }
+    if(isValid){
+        cout << "This is a valid card. " << endl;
+    } else {
+        cout << "This is not a valid card" << endl;
+    }
 
     return 0;
 }
