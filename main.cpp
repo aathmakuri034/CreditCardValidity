@@ -3,7 +3,7 @@
 
 using namespace std;
 
-void printArr(int arr[], int size);
+void printArr(vector<int> arr);
 
 void validateCard(long long cardnum){
 
@@ -17,10 +17,32 @@ void validateCard(long long cardnum){
 
     reverse(digits.begin(), digits.end());
 
-    for(int i=0; i<digits.size(); i++){
-        cout << i << ". "<< digits.at(i) << endl;;
+    printArr(digits);
+
+    int tempvar;
+    for(int i=15; i>=0; i--){
+        if(i%2 == 0){
+            tempvar = digits.at(i);
+            tempvar*=2;
+            if(tempvar>9){
+                tempvar = tempvar/10 + tempvar%10;
+                cout << "IN LOOP" << endl;
+            }
+            digits.at(i) = tempvar;
+        }
+
+        
     }
 
+    cout << "-----------------------------" << endl;
+    printArr(digits);
+
+}
+
+void printArr(vector<int> digits){
+    for(int i=0; i<digits.size(); i++){
+        cout << i << ". " << digits.at(i) << endl;
+    }
 }
 
 int menu(){
