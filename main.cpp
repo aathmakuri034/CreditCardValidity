@@ -5,6 +5,8 @@ using namespace std;
 
 void printArr(vector<int> arr);
 
+//Validates card numbers only for Visa, Mastercard, and Discover
+//Arguments needed: 16 digit card number and an integer card co. choice
 bool validateCard(long long cardnum, int choice){
 
     //step 1 - convert card number into a vector of digits
