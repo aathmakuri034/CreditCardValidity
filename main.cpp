@@ -8,6 +8,7 @@ void printArr(vector<int> arr);
 bool americanValidateCard(long long cardnumber);
 bool validateCard(long long cardnum, int choice);
 vector<int> numToDigits(long long cardnum);
+void newDigitsVector(long long cardnumber, int size);
 
 int main(){
     long long cardnumber;
@@ -58,6 +59,20 @@ vector<int> numToDigits(long long cardnum){
     return digits;
 }
 
+void newDigitsVector(vector<int> &digits, int size){
+    int tempvar;
+    for(int i=size; i>=0; i--){
+        if(i%2 == 0){
+            tempvar = digits.at(i);
+            tempvar*=2;
+            if(tempvar>9){
+                tempvar = tempvar/10 + tempvar%10;
+            }
+            digits.at(i) = tempvar;
+        }
+    }
+}
+
 //Validates card numbers only for American Express
 //Arguments needed: 15 digit card number
 bool americanValidateCard(long long cardnumber){
@@ -65,11 +80,24 @@ bool americanValidateCard(long long cardnumber){
     vector<int> digits = numToDigits(cardnumber);
 
     if(digits.size() >16){
-        return true;
+        return false;
     }
 
     if(digits.at(0) != 3 && (digits.at(1) != 7 || digits.at(1) != 4)){
         return false;
+    }
+
+    //step
+    int tempvar;
+    for(int i=15; i>=0; i--){
+        if(i%2 == 0){
+            tempvar = digits.at(i);
+            tempvar*=2;
+            if(tempvar>9){
+                tempvar = tempvar/10 + tempvar%10;
+            }
+            digits.at(i) = tempvar;
+        }
     }
 
 
@@ -85,7 +113,7 @@ bool validateCard(long long cardnum, int choice){
 
     //Step 1a -- make sure the choices are selected correctly.
 
-    if(digits.size() >16){
+    if(digits.size() >17 && (choice>0 && choice<4)){
         return false;
     }
 
@@ -94,18 +122,12 @@ bool validateCard(long long cardnum, int choice){
     }
 
     //Step 2 - double every other digit starting from the right and replace the digit
-    int tempvar;
-    for(int i=15; i>=0; i--){
-        if(i%2 == 0){
-            tempvar = digits.at(i);
-            tempvar*=2;
-            if(tempvar>9){
-                tempvar = tempvar/10 + tempvar%10;
-            }
-            digits.at(i) = tempvar;
-        }
-    }
-
+    
+    if(choice >0 && choice <4)
+        newDigitsVector(digits, 16);
+    else if(choice == 4)
+        newDigitsVector(digits,15);
+    
     //Step 3 - total the numbers in the card and see if it is divisable by 10
 
     int total = 0;
